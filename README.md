@@ -1,6 +1,6 @@
 # Online Store RESTful API
 
-This repository contains a RESTful API for an online store built with Node.js, Hono, and SQLite. It provides endpoints for product management, user registration/login, shopping cart management, and order processing.
+This repository contains a RESTful API for an online store built with bun, Hono, and SQLite. It provides endpoints for product management, user registration/login, shopping cart management, and order processing.
 
 ## Features
 
@@ -13,21 +13,21 @@ This repository contains a RESTful API for an online store built with Node.js, H
 ## Tech Stack
 
 - **Backend Framework:** [Hono](https://github.com/honojs/hono)
-- **Database:** SQLite (using [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3))
+- **Database:** SQLite (using bun built-in sqlite3)
 - **Authentication:** JWT (via [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken))
-- **Password Hashing:** bcrypt
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- npm
+- [bunjs](https://bun.sh/docs/installation) 
+- pnpm
 
 ### Installation
 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/online-store-api.git
+   git clone https://github.com/Alsadig-ahmed/online-store-api.git
    cd online-store-api
+   ```
