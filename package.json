@@ -1,0 +1,21 @@
+{
+  "name": "online-store-api",
+  "version": "1.0.0",
+  "description": "A RESTful API for an online store built with Hono and SQLite",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "start": "bun run index.js",
+    "dev": "bun run index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.7.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
