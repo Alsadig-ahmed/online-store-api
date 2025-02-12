@@ -21,23 +21,39 @@ async function comparePassword(password, hashedPassword) {
 
 // POST /api/v1/users/register
 users.post('/register', async (c) => {
-  const data = await c.req.json();
-  const { name, email, password } = data;
-  if (!name || !email || !password) {
-    return c.json({ error: 'Name, email and password are required' }, 400);
-  }
   try {
+    // Get user input
+    const data = await c.req.json();
+    const { name, email, password } = data;
+
+    // Validate user input
+    if (!name || !email || !password) {
+      return c.json({ error: 'Name, email, and password are required' }, 400);
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      return c.json({ error: 'Invalid email format' }, 400);
+    }
+    if (password.length < 6) {
+      return c.json({ error: 'Password must be at least 6 characters long' }, 400);
+    }
+
     // Check if user already exists
-    const existing = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
-    if (existing) {
+    const existingUser = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+    if (existingUser) {
       return c.json({ error: 'Email already registered' }, 400);
     }
+
+    // Hash the password
     const hashedPassword = await hashPassword(password);
+    
+    // Insert user into the database
     const stmt = db.prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)');
-    const result = stmt.run(name, email, hashedPassword);
-    return c.json({ message: 'User registered', userId: result.lastInsertRowid });
+    const info = stmt.run(name, email, hashedPassword);
+
+    return c.json({ message: 'User created successfully', userId: info.lastInsertRowid }, 201);
   } catch (err) {
-    return c.json({ error: err.message }, 500);
+    console.error('Registration Error:', err);
+    return c.json({ error: 'Internal Server Error' }, 500);
   }
 });
 
